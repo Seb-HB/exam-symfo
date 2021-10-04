@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>Liste des employés</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Nom Prénom</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Type de contrat</th>
+                <th>Fin de contrat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><img src="../img/{{ user.image }}" alt="Photo"></td>
+                <td>{{ user.lastname }} {{ user.firstname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.contrat }}</td>
+                <td>
+                    {% if user.dateEnd== null %}
+                        Aucune
+                    {% else %}
+                        {{ user.dateEnd|date('Y-m-d') }}
+                    {% endif %} 
+                </td>
+                <td>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">Détails</a>
+                    {% if is_granted('ROLE_RH') %}
+                        <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun employé trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_RH') %}
+        <a href="{{ path('user_new') }}">Enregistrer un nouvel employé</a>
+    {% endif %}
+    
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+    <h1>Nouvel employé</h1>
+    <div class="col-6 m-auto">
+        {{ include('user/_form.html.twig') }}
+    </div>
+
+
+    <a href="{{ path('user_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a id="len1" class="hoverable nav-link" href="{{ path('user_index') }}">Annuaire</a></li>
+                {% if app.user %}
+                <li class="nav-item"><a id="len4" class="hoverable nav-link" href="{{path('app_logout')}}">Deconnexion</a></li>
+                {% else %}
+                <li class="nav-item"><a id="len4" class="hoverable nav-link" href="{{path('app_login')}}">Connexion</a></li>
+                {% endif%}
+            </ul>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div>
+                    Bonjour {{ app.user.lastname }} {{ app.user.firstname }}
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+</div>
